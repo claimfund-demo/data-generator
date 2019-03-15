@@ -10,7 +10,6 @@ public class PersonGenerator {
     private static LocationGenerator locationGenerator = new LocationGenerator();
 
     public static Person getPerson(String gender) {
-        NameGenerator nameGenerator = new NameGenerator();
         if (gender == null || "".equals(gender)) {
             throw new RuntimeException("Gender can't be null or empty.");
         }
@@ -23,8 +22,10 @@ public class PersonGenerator {
             name = nameGenerator.getMaleName().split(" ");
         } else if ("F".equals(gender)) {
             name = nameGenerator.getFemaleName().split(" ");
+        } else if ("NB".equals(gender)) {
+            name = nameGenerator.getNonBinaryName().split(" ");
         } else {
-            throw new RuntimeException("Gender choices are [F]emale or [M]ale.");
+            throw new RuntimeException("Gender choices are [F]emale, [M]ale or [NB] for Non-Binary/Genderqueer.");
         }
 
         person.setGivenName(name[0]);

@@ -95,4 +95,12 @@ public class NameGenerator {
         int randomSurname = ThreadLocalRandom.current().nextInt(surnames.length);
         return maleFirstNames[randomName] + " " + surnames[randomSurname];
     }
+
+    public String getNonBinaryName() {
+        int random = ThreadLocalRandom.current().nextInt(2);
+
+        if (random == 0) return getMaleName();
+
+        return getFemaleName();
+    }
 }
