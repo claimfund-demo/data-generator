@@ -2,12 +2,12 @@ package com.redhat.summit2019.generator;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.redhat.summit2019.model.ImmutableLoan;
+import com.redhat.summit2019.model.Loan;
 import com.redhat.summit2019.model.Person;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DataGenerator {
@@ -19,17 +19,20 @@ public class DataGenerator {
         if (quantity > 500) {
             throw new RuntimeException("Cannot produce more than 500 items at a time");
         }
+
         var personGenerator = new PersonGenerator();
         var farmGenerator = new FarmGenerator();
         var locationGenerator = new LocationGenerator();
+        var bankDetailsGenerator = new BankDetailsGenerator();
         var jsonWriter = new ObjectMapper();
 
-        List<Map<String, Object>> list = new ArrayList<>();
+        List<Loan> list = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
-            Map<String, Object> map = new HashMap<>();
-            var random = ThreadLocalRandom.current().nextInt(3);
+            var random = ThreadLocalRandom.current();
+            var randomGender = random.nextInt(3);
+
             Person person;
-            switch(random) {
+            switch(randomGender) {
                 case 0:
                     person = personGenerator.getPerson("f");
                     break;
@@ -43,10 +46,14 @@ public class DataGenerator {
                     throw new IllegalStateException("Unexpected value: " + random);
             }
 
-            map.put("Person", person);
-            map.put("Farm", farmGenerator.getFarm());
-            map.put("Location", locationGenerator.getLocation());
-            list.add(map);
+           list.add(ImmutableLoan.builder()
+                    .person(person)
+                    .farm(farmGenerator.getFarm())
+                    .location(locationGenerator.getLocation())
+                    .amount(random.nextLong(1000, 1_000_000L))
+                    .sortCode(bankDetailsGenerator.generateSortCode())
+                    .bankAccount(bankDetailsGenerator.generateBankAccount())
+                    .build());
         }
         return jsonWriter.writeValueAsString(list);
     }

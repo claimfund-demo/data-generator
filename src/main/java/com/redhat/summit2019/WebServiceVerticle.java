@@ -73,6 +73,7 @@ public class WebServiceVerticle extends AbstractVerticle {
 
         System.out.println("Starting server. Listening on port 8282...");
         httpServer.requestHandler(router).listen(8282, "0.0.0.0");
+        future.complete();
     }
 
     @Override
@@ -81,6 +82,5 @@ public class WebServiceVerticle extends AbstractVerticle {
         router.clear();
         httpServer.close();
         vertx.close();
-        future.complete();
     }
 }
