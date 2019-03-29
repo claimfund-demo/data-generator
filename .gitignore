@@ -8,7 +8,7 @@
 # Log file
 *.log
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.nar
@@ -22,3 +22,14 @@ hs_err_pid*
 
 # Maven
 target/
+
+# Eclipse stuff
+.classpath
+.project
+.settings/
+
+# Other stuff
+.vscode/
+
+# Vertx
+.vertx/

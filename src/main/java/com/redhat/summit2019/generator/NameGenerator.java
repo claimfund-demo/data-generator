@@ -8,6 +8,7 @@ public class NameGenerator {
     private final String[] maleFirstNames;
     private final String[] femaleFirstNames;
     private final String[] surnames;
+    private final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     public NameGenerator() {
         List<String> maleFirstNamesList = new ArrayList<>();
@@ -85,21 +86,21 @@ public class NameGenerator {
     }
 
     public String getFemaleName() {
-        int randomName = ThreadLocalRandom.current().nextInt(femaleFirstNames.length);
-        int randomSurname = ThreadLocalRandom.current().nextInt(surnames.length);
+        int randomName = random.nextInt(femaleFirstNames.length);
+        int randomSurname = random.nextInt(surnames.length);
         return femaleFirstNames[randomName] + " " + surnames[randomSurname];
     }
 
     public String getMaleName() {
-        int randomName = ThreadLocalRandom.current().nextInt(maleFirstNames.length);
-        int randomSurname = ThreadLocalRandom.current().nextInt(surnames.length);
+        int randomName = random.nextInt(maleFirstNames.length);
+        int randomSurname = random.nextInt(surnames.length);
         return maleFirstNames[randomName] + " " + surnames[randomSurname];
     }
 
     public String getNonBinaryName() {
-        int random = ThreadLocalRandom.current().nextInt(2);
+        int randomInt = random.nextInt(2);
 
-        if (random == 0) return getMaleName();
+        if (randomInt == 0) return getMaleName();
 
         return getFemaleName();
     }

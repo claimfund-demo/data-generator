@@ -1,40 +1,42 @@
 package com.redhat.summit2019.generator;
 
+import com.redhat.summit2019.model.ImmutablePerson;
 import com.redhat.summit2019.model.Person;
 
 import java.util.Locale;
-import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PersonGenerator {
-    private static NameGenerator nameGenerator = new NameGenerator();
-    private static LocationGenerator locationGenerator = new LocationGenerator();
+    private NameGenerator nameGenerator = new NameGenerator();
+    private ThreadLocalRandom random = ThreadLocalRandom.current();
 
-    public static Person getPerson(String gender) {
-        if (gender == null || "".equals(gender)) {
+    public Person getPerson(String gender) {
+        if (gender == null || gender.isBlank()) {
             throw new RuntimeException("Gender can't be null or empty.");
         }
 
         gender = gender.toUpperCase(Locale.ENGLISH);
-        Person person = new Person();
 
         String[] name;
-        if ("M".equals(gender)) {
-            name = nameGenerator.getMaleName().split(" ");
-        } else if ("F".equals(gender)) {
-            name = nameGenerator.getFemaleName().split(" ");
-        } else if ("NB".equals(gender)) {
-            name = nameGenerator.getNonBinaryName().split(" ");
-        } else {
-            throw new RuntimeException("Gender choices are [F]emale, [M]ale or [NB] for Non-Binary/Genderqueer.");
+        switch (gender) {
+            case "M":
+                name = nameGenerator.getMaleName().split(" ");
+                break;
+            case "F":
+                name = nameGenerator.getFemaleName().split(" ");
+                break;
+            case "NB":
+                name = nameGenerator.getNonBinaryName().split(" ");
+                break;
+            default:
+                throw new RuntimeException("Gender choices are [F]emale, [M]ale or [NB] for Non-Binary/Genderqueer.");
         }
 
-        person.setGivenName(name[0]);
-        person.setSurname(name[1]);
-        person.setGender(gender);
-        Map.Entry<String, String> location = locationGenerator.getLocation();
-        person.setLocation(location.getKey());
-        person.setCouncil(location.getValue());
-
-        return person;
+        return ImmutablePerson.builder()
+                .givenName(name[0])
+                .surname(name[1])
+                .gender(gender)
+                .age(random.nextInt(15, 99))
+                .build();
     }
 }
