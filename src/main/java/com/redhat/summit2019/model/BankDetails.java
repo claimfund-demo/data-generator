@@ -7,18 +7,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@JsonSerialize(as = ImmutableLocation.class)
-@JsonDeserialize(as = ImmutableLocation.class)
-@JsonTypeName("Location")
+@JsonSerialize(as = ImmutableBankDetails.class)
+@JsonDeserialize(as = ImmutableBankDetails.class)
+@JsonTypeName("BankDetails")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public abstract class Location {
-    @Value.Parameter
+public abstract class BankDetails {
+    public abstract long accountNumber();
     public abstract String name();
-    @Value.Parameter
-    public abstract String council();
-
-    @Override
-    public String toString() {
-        return name() + ", " + council();
-    }
+    public abstract long sortCode();
 }

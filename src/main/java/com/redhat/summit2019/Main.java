@@ -28,13 +28,13 @@ public class Main {
         }
 
         for (int i = 0; i < quantity; i++) {
-            url = new URL(baseURI + i);
+            url = new URL(baseURI);
             String json = dataGenerator.generateJsonData();
             RequestBody body = RequestBody.create(MediaType.get("application/json"), json);
             Request request = new Request.Builder().url(url).post(body).build();
             Response response = http.newCall(request).execute();
 
-            System.out.println("POST: " + response.code() + " " + json);
+            System.out.println("POST: " + response.code() + " " + (response.body() != null ? response.body().string() : "null"));
         }
     }
 }
