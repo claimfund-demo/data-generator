@@ -15,9 +15,9 @@ public class Main {
 
     private static final OkHttpClient http = new OkHttpClient();
     private static final DataGenerator dataGenerator = new DataGenerator();
-    private static final String BASE_URL = System.getProperty("PAM_BASE_URL", "http://127.0.0.1:8080/kie-server/services/rest/server");
-    private static final String CONTAINER_ID = System.getProperty("PAM_CONTAINER_ID", "kafka-jbpm-process_1.0.18-SNAPSHOT");
-    private static final String PROCESS_INSTANCE_ID = System.getProperty("PAM_PROCESS_INSTANCE_ID", "kafka-jbpm-process.claimfund-process");
+    private static final String BASE_URL = System.getenv().getOrDefault("PAM_BASE_URL", "http://127.0.0.1:8080/kie-server/services/rest/server");
+    private static final String CONTAINER_ID = System.getenv().getOrDefault("PAM_CONTAINER_ID", "kafka-jbpm-process_1.0.18-SNAPSHOT");
+    private static final String PROCESS_INSTANCE_ID = System.getenv().getOrDefault("PAM_PROCESS_INSTANCE_ID", "kafka-jbpm-process.claimfund-process");
 
     public static void main(String[] args) throws Exception {
         int quantity = 10;
