@@ -22,6 +22,8 @@ public class LocationGenerator {
         locationList.add(ImmutableLocation.of("Larkhall", "South Lanarkshire"));
         locationList.add(ImmutableLocation.of("Bathgate", "West Lothian"));
         locationList.add(ImmutableLocation.of("Livingston", "West Lothian"));
+        locationList.add(ImmutableLocation.of("Bara", "East Lothian"));
+        locationList.add(ImmutableLocation.of("Humbie", "East Lothian"));
         locations = locationList.toArray(new Location[0]);
     }
 

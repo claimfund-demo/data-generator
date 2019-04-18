@@ -15,16 +15,16 @@ public class Main {
 
     private static final OkHttpClient http = new OkHttpClient();
     private static final DataGenerator dataGenerator = new DataGenerator();
+    private static final String BASE_URL = System.getProperty("PAM_BASE_URL", "http://127.0.0.1:8080/kie-server/services/rest/server");
+    private static final String CONTAINER_ID = System.getProperty("PAM_CONTAINER_ID", "kafka-jbpm-process_1.0.18-SNAPSHOT");
+    private static final String PROCESS_INSTANCE_ID = System.getProperty("PAM_PROCESS_INSTANCE_ID", "kafka-jbpm-process.claimfund-process");
 
     public static void main(String[] args) throws Exception {
         int quantity = 10;
-        String baseURL = "http://192.168.0.23:8080/kie-server/services/rest/server";
-        String containerId = "kafka-jbpm-process_1.0.23-SNAPSHOT";
-        String processInstanceid = "kafka-jbpm-process.claimfund-process";
         Headers authHeader = new Headers.Builder()
                 .add("Authorization", Credentials.basic("wbadmin", "wbadmin"))
                 .build();
-        URL url = new URL(baseURL + "/containers/" + containerId + "/processes/" + processInstanceid + "/instances");
+        URL url = new URL(BASE_URL + "/containers/" + CONTAINER_ID + "/processes/" + PROCESS_INSTANCE_ID + "/instances");
 
         if (args != null && args.length > 0) {
             quantity = Integer.parseInt(args[0]);
@@ -44,7 +44,6 @@ public class Main {
             Response response = http.newCall(request).execute();
 
             System.out.println("POST: " + response.code() + " " + (response.body() != null ? response.body().string() : "null"));
-            Thread.sleep(2000);
         }
     }
 }
