@@ -18,11 +18,13 @@ public class Main {
     private static final String BASE_URL = System.getenv().getOrDefault("PAM_BASE_URL", "http://127.0.0.1:8080/kie-server/services/rest/server");
     private static final String CONTAINER_ID = System.getenv().getOrDefault("PAM_CONTAINER_ID", "kafka-jbpm-process_1.0.18-SNAPSHOT");
     private static final String PROCESS_INSTANCE_ID = System.getenv().getOrDefault("PAM_PROCESS_INSTANCE_ID", "kafka-jbpm-process.claimfund-process");
+    private static final String USERNAME = System.getenv().getOrDefault("JBPM_USERNAME", "wbadmin");
+    private static final String PASSWORD = System.getenv().getOrDefault("JBPM_PASSWORD", "wbadmin");
 
     public static void main(String[] args) throws Exception {
         int quantity = 10;
         Headers authHeader = new Headers.Builder()
-                .add("Authorization", Credentials.basic("wbadmin", "wbadmin"))
+                .add("Authorization", Credentials.basic(USERNAME, PASSWORD))
                 .build();
         URL url = new URL(BASE_URL + "/containers/" + CONTAINER_ID + "/processes/" + PROCESS_INSTANCE_ID + "/instances");
 
