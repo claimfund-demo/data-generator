@@ -9,7 +9,7 @@ import org.immutables.value.Value;
 @Value.Immutable
 @JsonSerialize(as = ImmutableBankDetails.class)
 @JsonDeserialize(as = ImmutableBankDetails.class)
-@JsonTypeName("BankDetails")
+@JsonTypeName("org.pamenon.jbpm.claimfund.domain.facts.BankDetails")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public abstract class BankDetails {
     public abstract long accountNumber();

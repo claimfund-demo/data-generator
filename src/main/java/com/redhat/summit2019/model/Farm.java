@@ -9,7 +9,7 @@ import org.immutables.value.Value;
 @Value.Immutable
 @JsonSerialize(as = ImmutableFarm.class)
 @JsonDeserialize(as = ImmutableFarm.class)
-@JsonTypeName("Farm")
+@JsonTypeName("org.pamenon.jbpm.claimfund.domain.facts.Farm")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public abstract class Farm {
     public abstract String name();

@@ -9,7 +9,7 @@ import org.immutables.value.Value;
 @Value.Immutable
 @JsonSerialize(as = ImmutableLocation.class)
 @JsonDeserialize(as = ImmutableLocation.class)
-@JsonTypeName("Location")
+@JsonTypeName("org.pamenon.jbpm.claimfund.domain.facts.Location")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public abstract class Location {
     @Value.Parameter
